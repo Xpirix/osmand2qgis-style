@@ -8,6 +8,7 @@ It parses the routeInfo_roadClass elements and creates QGIS line symbols with st
 
 from lxml import etree
 import re
+import os
 
 def hex_to_rgb(hex_color):
     """Convert hex color to RGB values."""
@@ -387,8 +388,11 @@ def generate_qgis_style(osmand_xml_path, output_path):
     print(f"Generated QGIS style with {len(roads)} road symbols: {output_path}")
 
 def main():
-    osmand_xml = "OsmAnd-resources/rendering_styles/default.render.xml"
-    output_xml = "styles/roads.xml"
+    osmand_xml = os.path.join("OsmAnd-resources", "rendering_styles", "default.render.xml")
+    output_xml = os.path.join("examples", "roads.xml")
+    
+    # Create output directory if it doesn't exist
+    os.makedirs(os.path.dirname(output_xml), exist_ok=True)
     
     generate_qgis_style(osmand_xml, output_xml)
 

@@ -27,6 +27,7 @@ from lxml import etree as ET
 from os.path import join, exists
 import base64
 import uuid
+import os
 
 def create_qgis_symbol(value, icon_base64, shield_base64):
   """Create a QGIS symbol XML element"""
@@ -188,9 +189,9 @@ def find_shield_value(case_element):
   return None
 
 def main():
-  osmand_xml = "OsmAnd-resources/rendering_styles/default.render.xml"
-  icons_dir = "OsmAnd-resources/rendering_styles/style-icons/poi-icons-svg"
-  shields_dir = "OsmAnd-resources/icons/svg/shields"
+  osmand_xml = join("OsmAnd-resources", "rendering_styles", "default.render.xml")
+  icons_dir = join("OsmAnd-resources", "rendering_styles", "style-icons", "poi-icons-svg")
+  shields_dir = join("OsmAnd-resources", "icons", "svg", "shields")
 
   tree = ET.parse(osmand_xml)
   root = tree.getroot()
@@ -268,7 +269,10 @@ def main():
   print(f"Skipped {skipped_no_files} due to missing files.")
 
   # Write XML output
-  output_path = "styles/points.xml"
+  output_path = join("examples", "points.xml")
+  
+  # Create output directory if it doesn't exist
+  os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
   # Format the XML with proper indentation
   ET.indent(qgis_style, space="  ")
