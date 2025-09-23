@@ -1,7 +1,26 @@
 #!/usr/bin/env python3
 
 """
-osmand2qgis_points.py
+osmand2qgis_point.py
+
+This script converts OSMAnd rendering style XML definitions for point features into a QGIS style XML file.
+It processes <case> elements from the OSMAnd style file that define icons and shields for map points,
+encodes the corresponding SVG files as base64, and generates QGIS symbol definitions with these icons and shields.
+The resulting QGIS style XML can be imported into QGIS to reproduce OSMAnd-style point symbology.
+
+Main functionalities:
+- Parses the OSMAnd rendering style XML to extract relevant <case> elements with tag, value, and icon attributes.
+- Locates and base64-encodes the corresponding SVG icon and shield files.
+- Constructs QGIS symbol XML elements with the encoded SVGs as marker layers.
+- Handles duplicate symbols, missing shields, and missing files with informative statistics.
+- Outputs a formatted QGIS style XML file with all generated symbols.
+
+Requirements:
+- lxml library for XML parsing and generation.
+- Access to the OSMAnd rendering style XML and the corresponding SVG icon and shield directories.
+
+Usage:
+  python osmand2qgis_point.py
 """
 
 from lxml import etree as ET
@@ -249,7 +268,7 @@ def main():
   print(f"Skipped {skipped_no_files} due to missing files.")
 
   # Write XML output
-  output_path = "osmand2qgis_points.xml"
+  output_path = "styles/points.xml"
 
   # Format the XML with proper indentation
   ET.indent(qgis_style, space="  ")
