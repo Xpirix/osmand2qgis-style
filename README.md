@@ -25,7 +25,7 @@ cd osmand2qgis-style
 git clone git@github.com:osmandapp/OsmAnd-resources.git
 pip install lxml
 python osmand2qgis_point.py
-python osmand2qgis_point.py
+python osmand2qgis_road.py
 ```
 
 Each script outputs a `.xml` file in the **examples** directory.
