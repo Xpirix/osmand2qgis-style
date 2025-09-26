@@ -22,8 +22,9 @@ Easily convert [OSMAnd style resources](https://github.com/osmandapp/OsmAnd-reso
 ```sh
 git clone git@github.com:Xpirix/osmand2qgis-style.git
 cd osmand2qgis-style
-git clone git@github.com:osmandapp/OsmAnd-resources.git
+python -m venv venv
 pip install lxml
+git clone git@github.com:osmandapp/OsmAnd-resources.git
 python osmand2qgis_point.py
 python osmand2qgis_road.py
 ```
